@@ -1,0 +1,679 @@
+Email As screen:
+    Fill: =RGBA(232, 232, 232, 1)
+    OnVisible: =
+
+    MesEditor As richTextEditor:
+        BorderColor: =RGBA(0, 51, 102, 1)
+        Default: ="Add a <strong>message</strong> here."
+        Height: =553
+        Size: =14
+        Width: =560
+        X: =40
+        Y: =MesLabel.Y+MesLabel.Height
+        ZIndex: =1
+
+    MesLabel As label:
+        AutoHeight: =true
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(0, 36, 71, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        Height: =70
+        Size: =16
+        Text: ="Message"
+        Width: =560
+        X: =40
+        Y: |
+            =SubTextInput.Y+SubTextInput.Height+20
+        ZIndex: =2
+
+    SubTextInput As text:
+        BorderColor: =RGBA(0, 36, 71, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        FocusedBorderThickness: =1
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Bold
+        Height: =35
+        HintText: ="Add a subject"
+        HoverBorderColor: =RGBA(0, 36, 71, 1)
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(153, 205, 255, 1)
+        PaddingLeft: =10
+        PaddingRight: =10
+        RadiusBottomLeft: =17.5
+        RadiusBottomRight: =17.5
+        RadiusTopLeft: =17.5
+        RadiusTopRight: =17.5
+        Size: =16
+        Width: =560
+        X: =40
+        Y: =SubLabel.Y+SubLabel.Height
+        ZIndex: =3
+
+    SubLabel As label:
+        AutoHeight: =true
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(0, 36, 71, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        Height: =70
+        Size: =16
+        Text: ="Subject"
+        Width: =560
+        X: =40
+        Y: =CcGal.Y+CcGal.Height+10
+        ZIndex: =4
+
+    EmailCont1 As groupContainer.verticalAutoLayoutContainer:
+        Height: =85
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =640
+        ZIndex: =5
+
+        VRBackIcon_1 As icon.ChevronLeft:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =EmailCont1.Height
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Back(ScreenTransition.CoverRight)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =EmailCont1.Height
+            ZIndex: =1
+
+        VRTitle_1 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =EmailCont1.Height
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Size: =24
+            Text: ="Compose"
+            Width: =EmailCont1.Width-VRBackIcon_1.Width-VRHomeIcon_1.Width
+            ZIndex: =2
+
+        VRHomeIcon_1 As icon.Home:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =EmailCont1.Height
+            Icon: =Icon.Home
+            OnSelect: =Navigate(HomePage,ScreenTransition.Fade)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =EmailCont1.Height
+            ZIndex: =3
+
+    EmailCont2 As groupContainer.manualLayoutContainer:
+        Height: =60
+        Width: =640
+        Y: =1076
+        ZIndex: =7
+
+        SendBtn As icon.Save:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =DeleteBtn1_1.Height
+            Icon: =Icon.Send
+            OnSelect: |-
+                =Concurrent(
+                    Set(
+                        _emailRecipientString,
+                        Concat(
+                            ToPeople,
+                            Mail & ";"
+                        )
+                    ),
+                    Set(
+                        _emailCcString,
+                        Concat(
+                            CcPeople,
+                            Mail & ";"
+                        )
+                    )
+                );
+                Office365Outlook.SendEmailV2(
+                    _emailRecipientString,
+                    SubTextInput.Text,
+                    MesEditor.HtmlText,
+                    {
+                        Cc: _emailCcString,
+                        Attachments: attachedfiles,
+                        Importance: "Normal"
+                    }
+                );
+                Concurrent(
+                    Reset(SubTextInput),
+                    Reset(MesEditor),
+                    UploadedImage.Image = Blank(),
+                    Clear(ToPeople),
+                    Clear(CcPeople),
+                    Clear(attachedfiles)
+                );
+                Navigate(MailSent,Fade)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Self.Color
+            Width: =628
+            X: =6
+            Y: =DeleteBtn1_1.Y
+            ZIndex: =8
+
+        Rectangle1_1 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(162, 162, 162, 1)
+            Height: =1
+            Width: =620
+            X: =10
+            ZIndex: =9
+
+    ToGroup As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =9
+
+        ToGal As gallery.SelectedUsersGallery:
+            AccessibleLabel: ="User selected people"
+            BorderColor: =ToTextInput.BorderColor
+            Fill: =RGBA(232, 232, 232, 1)
+            Height: |-
+                =/*Height adjusts to number of items in gallery*/
+                Min((Self.TemplateHeight + Self.TemplatePadding * 2) * RoundUp(CountRows(Self.AllItems) / 2, 0), 304)
+            Items: |-
+                =/*Collection of user selected people*/
+                ToPeople
+            Layout: =Layout.Vertical
+            ShowScrollbar: =Self.Height >= 304
+            TemplateSize: |
+                =35
+            Width: =Parent.Width - Self.X * 2
+            WrapCount: =2
+            X: =54
+            Y: =ToTextInput.Y+ToTextInput.Height
+            ZIndex: =6
+
+            ToSelectedBG As button:
+                BorderThickness: =0
+                Color: =RGBA(0, 51, 102, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(0, 51, 102, 1)
+                DisabledFill: =RGBA(153, 173, 194, 1)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(204, 214, 224, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 51, 102, 1), -20%)
+                OnSelect: =Select(Parent)
+                Size: =24
+                Text: =""
+                Width: =258.5
+                ZIndex: =1
+
+            SelectedTil1 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.'Lato Light'
+                Height: =ToGal.TemplateHeight
+                OnSelect: =Set(_selectedUser, ThisItem)
+                PaddingLeft: =10
+                TabIndex: =If(ToSearchGal.Visible, -1, 0)
+                Text: =ThisItem.DisplayName
+                VerticalAlign: =Middle
+                Width: =ToGal.TemplateWidth - ToRemove.Width + 10
+                Wrap: =false
+                ZIndex: =3
+
+            ToRemove As icon.Cancel:
+                AccessibleLabel: =ToRemove.Tooltip
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =SelectedTil1.Color
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =ToGal.TemplateHeight
+                Icon: =Icon.Cancel
+                OnSelect: =Remove(ToPeople, LookUp(ToPeople, UserPrincipalName = ThisItem.UserPrincipalName))
+                PaddingBottom: =9
+                PaddingLeft: =9
+                PaddingRight: =9
+                PaddingTop: =9
+                TabIndex: =If(ToSearchGal.Visible, -1, 0)
+                Tooltip: ="Select to remove user from collection"
+                Width: =Self.Height
+                X: =ToGal.TemplateWidth - Self.Width
+                ZIndex: =4
+
+        ToLabel As label:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.Lato
+            Height: =70
+            Size: =16
+            Text: ="To (" &CountRows(ToPeople) & ")"
+            Width: =560
+            X: =40
+            Y: =85
+            ZIndex: =9
+
+        ToTextInput As text:
+            BorderColor: =RGBA(0, 36, 71, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            Default: =""
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            FocusedBorderThickness: =1
+            Font: =Font.Lato
+            Height: =35
+            HintText: ="Search people or add email address"
+            HoverBorderColor: =RGBA(0, 36, 71, 1)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(153, 205, 255, 1)
+            PaddingLeft: =45
+            RadiusBottomLeft: =17.5
+            RadiusBottomRight: =17.5
+            RadiusTopLeft: =17.5
+            RadiusTopRight: =17.5
+            Size: =16
+            Width: =560
+            X: =40
+            Y: =ToLabel.Y+ToLabel.Height
+            ZIndex: =10
+
+        ToSearchIcon As icon.Search:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =35
+            Icon: =Icon.Search
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Width: =35
+            X: =45
+            Y: =ToLabel.Y+ToLabel.Height
+            ZIndex: =11
+
+        AddToEmail As icon.Add:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =35
+            Icon: =Icon.Add
+            OnSelect: |-
+                =Collect(ToPeople,           
+                {DisplayName: ToTextInput.Text, UserPrincipalName: ToTextInput.Text, Mail: ToTextInput.Text});           
+                Reset(ToTextInput)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            TabIndex: =0
+            Tooltip: ="Select to add user to collection"
+            Visible: |-
+                =!IsBlank(ToTextInput.Text) &&           
+                
+                /*Is user entry a valid email address*/           
+                IsMatch(ToTextInput.Text, Match.Email)           &&
+                
+                Not(Trim(ToTextInput.Text) in ToPeople.UserPrincipalName)
+            Width: =35
+            X: =560
+            Y: =ToLabel.Y+ToLabel.Height
+            ZIndex: =17
+
+        "ToSearchGal As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
+            BorderColor: =RGBA(0, 51, 102, 1)
+            BorderThickness: =1
+            Fill: =RGBA(246, 246, 246, 1)
+            FocusedBorderThickness: =1
+            Height: =243
+            Items: |-
+                =If(!IsBlank(Trim(ToTextInput.Text)),Office365Users.SearchUser({searchTerm:Trim(ToTextInput.Text),top:5}))
+            Layout: =Layout.Vertical
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =61
+            Visible: =!IsBlank(Trim(ToTextInput.Text))
+            Width: =525
+            X: =57
+            Y: =ToTextInput.Y+ToTextInput.Height
+            ZIndex: =18
+
+            BG1 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =61
+                OnSelect: =Select(Title1)
+                Width: =525
+                ZIndex: =1
+
+            Title1 As label:
+                Color: =RGBA(0, 51, 102, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =Self.Size * 1.8
+                OnSelect: |-
+                    =Concurrent(
+                    Set(_selectedToUser, ThisItem),
+                    Reset(ToTextInput),
+                    If(Not(ThisItem.UserPrincipalName in ToPeople.UserPrincipalName), Collect(ToPeople, ThisItem)))
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =16
+                Text: =ThisItem.DisplayName
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 104
+                X: =32
+                Y: =5
+                ZIndex: =2
+
+            Subtitle1 As label:
+                Color: =RGBA(0, 51, 102, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.'Lato Light'
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Title1)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =ThisItem.UserPrincipalName
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 104
+                X: =32
+                Y: =33
+                ZIndex: =3
+
+            Separator1 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(0, 51, 102, 1)
+                Height: =1
+                OnSelect: =Select(Title1)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =4
+
+    CcGroup As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =15
+
+        CcGal As gallery.SelectedUsersGallery:
+            AccessibleLabel: ="User selected people"
+            BorderColor: =CcTextInput.BorderColor
+            Fill: =RGBA(232, 232, 232, 1)
+            Height: |-
+                =/*Height adjusts to number of items in gallery*/
+                Min((Self.TemplateHeight + Self.TemplatePadding * 2) * RoundUp(CountRows(Self.AllItems) / 2, 0), 304)
+            Items: |-
+                =/*Collection of user selected people*/
+                CcPeople
+            Layout: =Layout.Vertical
+            ShowScrollbar: =Self.Height >= 304
+            TemplateSize: |
+                =35
+            Width: =Parent.Width - Self.X * 2
+            WrapCount: =2
+            X: =54
+            Y: =CcTextInput.Y+CcTextInput.Height
+            ZIndex: =8
+
+            CcSelectedBG As button:
+                BorderThickness: =0
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(153, 173, 194, 1)
+                DisplayMode: =DisplayMode.Disabled
+                Fill: =RGBA(102, 133, 163, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =35
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: =ColorFade(RGBA(0, 51, 102, 1), -20%)
+                OnSelect: =Select(Parent)
+                Size: =24
+                Text: =""
+                Width: =258.5
+                ZIndex: =1
+
+            SelectedTil2 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.'Lato Light'
+                Height: =CcGal.TemplateHeight
+                OnSelect: =Set(_selectedUser, ThisItem)
+                PaddingLeft: =10
+                TabIndex: =If(CcSearchGal.Visible, -1, 0)
+                Text: =ThisItem.DisplayName
+                VerticalAlign: =Middle
+                Width: =CcGal.TemplateWidth - iconRemove2.Width + 10
+                Wrap: =false
+                ZIndex: =3
+
+            iconRemove2 As icon.Cancel:
+                AccessibleLabel: =iconRemove2.Tooltip
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =SelectedTil2.Color
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =CcGal.TemplateHeight
+                Icon: =Icon.Cancel
+                OnSelect: =Remove(CcPeople, LookUp(CcPeople, UserPrincipalName = ThisItem.UserPrincipalName))
+                PaddingBottom: =9
+                PaddingLeft: =9
+                PaddingRight: =9
+                PaddingTop: =9
+                TabIndex: =If(CcSearchGal.Visible, -1, 0)
+                Tooltip: ="Select to remove user from collection"
+                Width: =Self.Height
+                X: =CcGal.TemplateWidth - Self.Width
+                ZIndex: =4
+
+        CcLabel As label:
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.Lato
+            Height: =70
+            Size: =16
+            Text: ="Cc (" &CountRows(CcPeople) & ")"
+            Width: =560
+            X: =40
+            Y: =ToGal.Y+ToGal.Height+10
+            ZIndex: =12
+
+        CcTextInput As text:
+            BorderColor: =RGBA(0, 36, 71, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            Default: =""
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            FocusedBorderThickness: =1
+            Font: =Font.Lato
+            Height: =35
+            HintText: ="Search people or add email address"
+            HoverBorderColor: =RGBA(0, 36, 71, 1)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(153, 205, 255, 1)
+            PaddingLeft: =45
+            RadiusBottomLeft: =17.5
+            RadiusBottomRight: =17.5
+            RadiusTopLeft: =17.5
+            RadiusTopRight: =17.5
+            Size: =16
+            Width: =560
+            X: =40
+            Y: =CcLabel.Y+CcLabel.Height
+            ZIndex: =13
+
+        CcSearchIcon As icon.Search:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =35
+            Icon: =Icon.Search
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Width: =35
+            X: =45
+            Y: =CcLabel.Y+CcLabel.Height
+            ZIndex: =14
+
+        AddCcEmail As icon.Add:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =35
+            Icon: =Icon.Add
+            OnSelect: |-
+                =Collect(CcPeople,           
+                {DisplayName: CcTextInput.Text, UserPrincipalName: CcTextInput.Text, Mail: CcTextInput.Text});           
+                Reset(CcTextInput)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            TabIndex: =0
+            Tooltip: ="Select to add user to collection"
+            Visible: |-
+                =!IsBlank(CcTextInput.Text) &&           
+                
+                /*Is user entry a valid email address*/           
+                IsMatch(CcTextInput.Text, Match.Email)           &&
+                
+                Not(Trim(CcTextInput.Text) in CcPeople.UserPrincipalName)
+            Width: =35
+            X: =560
+            Y: =CcLabel.Y+CcLabel.Height
+            ZIndex: =15
+
+        "CcSearchGal As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
+            BorderColor: =RGBA(0, 51, 102, 1)
+            BorderThickness: =1
+            Fill: =RGBA(246, 246, 246, 1)
+            FocusedBorderThickness: =1
+            Height: =243
+            Items: |-
+                =If(!IsBlank(Trim(CcTextInput.Text)),Office365Users.SearchUser({searchTerm:Trim(CcTextInput.Text),top:5}))
+            Layout: =Layout.Vertical
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =61
+            Visible: =!IsBlank(Trim(CcTextInput.Text))
+            Width: =525
+            X: =57
+            Y: =CcTextInput.Y+CcTextInput.Height
+            ZIndex: =16
+
+            BG2 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =61
+                OnSelect: =Select(Title2)
+                Width: =525
+                ZIndex: =1
+
+            Title2 As label:
+                Color: =RGBA(0, 51, 102, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =Self.Size * 1.8
+                OnSelect: |-
+                    =Concurrent(
+                    Set(_selectedCcUser, ThisItem),
+                    Reset(CcTextInput),
+                    If(Not(ThisItem.UserPrincipalName in CcPeople.UserPrincipalName), Collect(CcPeople, ThisItem)))
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =16
+                Text: =ThisItem.DisplayName
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 104
+                X: =32
+                Y: =5
+                ZIndex: =2
+
+            Subtitle2 As label:
+                Color: =RGBA(0, 51, 102, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.'Lato Light'
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =ThisItem.UserPrincipalName
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 104
+                X: =32
+                Y: =33
+                ZIndex: =3
+
+            Separator2 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(0, 51, 102, 1)
+                Height: =1
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =4
+
+    AttBtn As button:
+        BorderThickness: =1
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(0, 51, 102, 1)
+        FocusedBorderThickness: =1
+        Font: =Font.'Lato Light'
+        FontWeight: =FontWeight.Semibold
+        Height: =35
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =ColorFade(RGBA(0, 51, 102, 1), -20%)
+        OnSelect: =Navigate(Attachment,ScreenTransition.Cover)
+        RadiusBottomLeft: =17.5
+        RadiusBottomRight: =17.5
+        RadiusTopLeft: =17.5
+        RadiusTopRight: =17.5
+        Size: =16
+        Text: ="Attachment"
+        Width: =150
+        X: =450
+        Y: =MesEditor.Y+MesEditor.Height+10
+        ZIndex: =19
+

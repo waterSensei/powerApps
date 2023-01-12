@@ -1,0 +1,107 @@
+"MailSent As screen.'phoneLayout_Success_ver3.0'":
+    Fill: =RGBA(232, 232, 232, 1)
+
+    iconCircle1 As circle.Circle:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Fill: =RGBA(0, 51, 102, Timer1.Value/2000)
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =(Parent.Height/2 - Self.Height/2) * .7
+        ZIndex: =1
+
+    iconCheck1 As icon.Check:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(255, 255, 255, Timer1.Value/2000)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =iconCircle1.Height
+        Icon: =Icon.Check
+        PaddingBottom: =Self.PaddingTop
+        PaddingLeft: =Self.PaddingTop
+        PaddingRight: =Self.PaddingTop
+        PaddingTop: =18
+        PressedFill: =RGBA(255, 255, 255, 0.3)
+        Width: =iconCircle1.Width
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =(Parent.Height/2 - Self.Height/2) * .7
+        ZIndex: =2
+
+    LblSuccessMsg1 As label:
+        Align: =Align.Center
+        AutoHeight: =true
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(0, 51, 102, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        Height: =iconCircle1.Height
+        Size: =21
+        Text: ="EMAIL SENT"
+        Width: =Parent.Width * 0.75
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =605
+        ZIndex: =3
+
+    Timer1 As timer:
+        AutoStart: =true
+        BorderThickness: =0
+        Duration: =2000
+        Fill: =RGBA(232, 232, 232, 1)
+        FocusedBorderThickness: =0
+        Height: =44
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =ColorFade(RGBA(0, 51, 102, 1), -20%)
+        Text: =
+        Width: =200-Self.Value/10
+        X: =220+Self.Value/10
+        Y: =605
+        ZIndex: =4
+
+    MailSentCont As groupContainer.verticalAutoLayoutContainer:
+        Height: =85
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =640
+        ZIndex: =5
+
+        VRBackIcon_3 As icon.ChevronLeft:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, Timer1.Value/2000)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =MailSentCont.Height
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Back(ScreenTransition.CoverRight)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =MailSentCont.Height
+            ZIndex: =1
+
+        VRTitle_3 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =MailSentCont.Height
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Size: =24
+            Text: =""
+            Width: =MailSentCont.Width-VRBackIcon_3.Width-VRHomeIcon_3.Width
+            ZIndex: =2
+
+        VRHomeIcon_3 As icon.Home:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, Timer1.Value/2000)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =MailSentCont.Height
+            Icon: =Icon.Home
+            OnSelect: =Navigate(HomePage,ScreenTransition.Fade)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =MailSentCont.Height
+            ZIndex: =3
+

@@ -1,0 +1,284 @@
+ViewRecord As screen:
+    Fill: =RGBA(232, 232, 232, 1)
+    OnVisible: =
+
+    VRCont1 As groupContainer.verticalAutoLayoutContainer:
+        Height: =85
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =640
+        ZIndex: =1
+
+        VRBackIcon As icon.ChevronLeft:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =VRCont1.Height
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Back(ScreenTransition.CoverRight)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =VRCont1.Height
+            ZIndex: =1
+
+        VRTitle As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =VRCont1.Height
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Size: =24
+            Text: ="Record"
+            Width: =VRCont1.Width-VRBackIcon.Width-VRHomeIcon.Width
+            ZIndex: =2
+
+        VRHomeIcon As icon.Home:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =VRCont1.Height
+            Icon: =Icon.Home
+            OnSelect: =Navigate(HomePage,ScreenTransition.Fade)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =VRCont1.Height
+            ZIndex: =3
+
+    "VRGal As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Height: =900
+        Items: =SortByColumns(Filter(tdb01_insrecords,StartsWith(JN,VRSearchBox.Text)),"cr7ee_jn",Descending)
+        Layout: =Layout.Vertical
+        OnSelect: =Navigate(RecordItem,ScreenTransition.Cover)
+        ShowScrollbar: =false
+        TemplateFill: =If(ThisItem.IsSelected,RGBA(204,214,224,1))
+        TemplatePadding: =0
+        TemplateSize: =160
+        Y: =176
+        ZIndex: =1
+
+        VRGalJN As label:
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =20
+            Text: =ThisItem.JN
+            VerticalAlign: =VerticalAlign.Top
+            Width: =70
+            X: =35
+            Y: =15
+            ZIndex: =1
+
+        VRGalSubTitle As label:
+            Color: =RGBA(102, 133, 163, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.Lato
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.FirstName&" "&ThisItem.LastName
+            VerticalAlign: =VerticalAlign.Top
+            Width: =(Parent.TemplateWidth - 2*VRGalJN.X)/2
+            X: =VRGalJN.X
+            Y: =VRGalJN.Y + VRGalJN.Height + 2
+            ZIndex: =2
+
+        VRGalClient As label:
+            Color: =RGBA(116, 116, 116, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Height: =Self.Size * 3.6
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: =ThisItem.Address
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - 104
+            X: =VRGalJN.X
+            Y: =VRGalSubTitle.Y + VRGalSubTitle.Height + 4
+            ZIndex: =3
+
+        NextArrow2 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            BorderColor: =RGBA(0, 89, 178, 1)
+            BorderStyle: =BorderStyle.None
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =60
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =60
+            X: =Parent.TemplateWidth - Self.Width - 5
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =4
+
+        VRSeparator As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(209, 209, 209, 1)
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth-Self.X
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        VRSelected As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =1
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            Fill: =RGBA(0, 51, 102, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =VRGal.TemplateHeight-2*Self.Y
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =Self.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Self.Fill
+            RadiusBottomLeft: =7
+            RadiusBottomRight: =7
+            RadiusTopLeft: =7
+            RadiusTopRight: =7
+            Size: =24
+            Text: =""
+            Visible: =ThisItem.IsSelected
+            Width: =14
+            X: =12
+            Y: =10
+            ZIndex: =6
+
+        VRGalBat As label:
+            Align: =Align.Right
+            Color: =RGBA(0, 121, 187, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Lato Light'
+            Height: =Self.Size * 1.8
+            Italic: =true
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.BatModel
+            VerticalAlign: =VerticalAlign.Top
+            Width: =170
+            X: =400
+            Y: =VRGalInv.Y+VRGalInv.Height
+            ZIndex: =7
+
+        VRGalInv As label:
+            Align: =Align.Right
+            Color: =RGBA(0, 121, 187, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Lato Light'
+            Height: =Self.Size * 1.8
+            Italic: =true
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.InvModel
+            VerticalAlign: =VerticalAlign.Top
+            Width: =170
+            X: =400
+            Y: =VRGalJN.Y + 10
+            ZIndex: =8
+
+    VRSearchBox As text:
+        BorderColor: =RGBA(0, 51, 102, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =1
+        Height: =Self.Size*3
+        HintText: ="Search Job Number"
+        HoverBorderColor: =Self.BorderColor
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        PaddingLeft: =65
+        PressedBorderColor: =Self.BorderColor
+        PressedFill: =RGBA(255, 255, 255, 1)
+        RadiusBottomLeft: =27
+        RadiusBottomRight: =27
+        RadiusTopLeft: =27
+        RadiusTopRight: =27
+        Size: =18
+        Width: =640-Self.X*2
+        X: =15
+        Y: =VRCont1.Height+15
+        ZIndex: =2
+
+    VRSearchIcon As icon.Search:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(0, 51, 102, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =VRSearchBox.Height
+        Icon: =Icon.Search
+        PaddingBottom: =7
+        PaddingLeft: =7
+        PaddingRight: =5
+        PaddingTop: =7
+        Width: =VRSearchBox.Height
+        X: =VRSearchBox.X+5
+        Y: =VRSearchBox.Y
+        ZIndex: =3
+
+    VRCont2 As groupContainer.manualLayoutContainer:
+        Height: =60
+        Width: =640
+        Y: =1076
+        ZIndex: =4
+
+        NewBtn As icon.Save:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =DeleteBtn1_1.Height
+            Icon: =Icon.Add
+            OnSelect: =ResetForm(RecordForm);NewForm(RecordForm);Navigate(RecordItem,ScreenTransition.Cover)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Self.Color
+            Width: =628
+            X: =6
+            Y: =DeleteBtn1_1.Y
+            ZIndex: =8
+
+        Rectangle1 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(162, 162, 162, 1)
+            Height: =1
+            Width: =620
+            X: =10
+            ZIndex: =9
+

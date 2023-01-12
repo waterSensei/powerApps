@@ -1,0 +1,2534 @@
+RecordItem As screen:
+    Fill: =RGBA(232, 232, 232, 1)
+
+    RICont1 As groupContainer.verticalAutoLayoutContainer:
+        Height: =85
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =640
+        ZIndex: =1
+
+        RIBackIcon As icon.ChevronLeft:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            DisplayMode: =If(popvis,DisplayMode.Disabled,DisplayMode.Edit)
+            Height: =RICont1.Height
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Back(ScreenTransition.CoverRight);ResetForm(RecordForm)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =RICont1.Height
+            ZIndex: =1
+
+        RITitle As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =RICont1.Height
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Size: =24
+            Text: =If(RecordForm.Mode = FormMode.New, "New Record",VRGal.Selected.JN)
+            Width: =RICont1.Width-RIBackIcon.Width-RIHomeIcon.Width
+            ZIndex: =2
+
+        RIHomeIcon As icon.Home:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            DisplayMode: =If(popvis,DisplayMode.Disabled,DisplayMode.Edit)
+            Height: =RICont1.Height
+            Icon: =Icon.Home
+            OnSelect: =Navigate(HomePage,ScreenTransition.Fade)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =RICont1.Height
+            ZIndex: =3
+
+    RecordForm As form:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        DataSource: =tdb01_insrecords
+        DefaultMode: =FormMode.View
+        Height: =989
+        Item: =VRGal.Selected
+        NumberOfColumns: =2
+        OnSuccess: =ResetForm(RecordForm)
+        Width: =640
+        Y: =85
+        ZIndex: =2
+
+        Address_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =RGBA(102, 133, 163, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_address"
+            Default: =ThisItem.Address
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_address")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_address")
+            Required: =true
+            Update: =DataCardValue3.Text
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey3 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue3 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Clear: =true
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =34
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =8
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                ZIndex: =2
+
+            ErrorMessage1 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =12
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue3.Y + DataCardValue3.Height
+                ZIndex: =3
+
+        FirstName_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_firstname"
+            Default: =ThisItem.FirstName
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_firstname")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_firstname")
+            Required: =true
+            Update: =DataCardValue8.Text
+            Width: =320
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            DataCardKey8 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue8 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =34
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                ZIndex: =2
+
+            ErrorMessage6 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue8.Y + DataCardValue8.Height
+                ZIndex: =3
+
+        LastName_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_lastname"
+            Default: =ThisItem.LastName
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_lastname")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_lastname")
+            Required: =true
+            Update: =DataCardValue14.Text
+            Width: =320
+            X: =1
+            Y: =1
+            ZIndex: =1
+
+            DataCardKey15 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue14 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey15.Y + DataCardKey15.Height + 5
+                ZIndex: =2
+
+            ErrorMessage13 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue14.Y + DataCardValue14.Height
+                ZIndex: =3
+
+        Mobile_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_mobile"
+            Default: =ThisItem.Mobile
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_mobile")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_mobile")
+            Required: =true
+            Update: =DataCardValue15.Text
+            Width: =320
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey16 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue15 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey16.Y + DataCardKey16.Height + 5
+                ZIndex: =2
+
+            ErrorMessage14 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue15.Y + DataCardValue15.Height
+                ZIndex: =3
+
+        Email_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_email"
+            Default: =ThisItem.Email
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_email")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_email")
+            Required: =true
+            Update: =DataCardValue7.Text
+            Width: =320
+            X: =1
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey7 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue7 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                Mode: =TextMode.MultiLine
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                ZIndex: =2
+
+            ErrorMessage5 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue7.Y + DataCardValue7.Height
+                ZIndex: =3
+
+        Sales_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_sales"
+            Default: =ThisItem.Sales
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_sales")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_sales")
+            Required: =true
+            Update: =DataCardValue22.Text
+            Width: =320
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            DataCardKey23 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue22 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                ZIndex: =2
+
+            ErrorMessage21 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue22.Y + DataCardValue22.Height
+                ZIndex: =3
+
+            FieldSep2 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                X: =25
+                Y: =8
+                ZIndex: =4
+
+        Installer_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_installer"
+            Default: =ThisItem.Installer
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_installer")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_installer")
+            Required: =true
+            Update: =DataCardValue9.Text
+            Width: =320
+            X: =1
+            Y: =3
+            ZIndex: =1
+
+            DataCardKey10 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue9 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Height: |
+                    =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey10.Y + DataCardKey10.Height + 5
+                ZIndex: =2
+
+            ErrorMessage8 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue9.Y + DataCardValue9.Height
+                ZIndex: =3
+
+            FieldSep3 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                Y: =8
+                ZIndex: =4
+
+        InstallationDate_DataCard1 As typedDataCard.dateTimeEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_installationdate"
+            Default: =ThisItem.InstallationDate
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_installationdate")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =88
+            Required: =true
+            Update: =DateValue1.SelectedDate
+            Width: =640
+            X: =0
+            Y: =4
+            ZIndex: =1
+
+            DataCardKey9 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DateValue1 As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                CalendarHeaderFill: =RGBA(0, 51, 102, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DefaultDate: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverDateFill: =RGBA(153, 205, 255, 1)
+                IconBackground: =RGBA(0, 51, 102, 1)
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 10, 5)
+                SelectedDateFill: =RGBA(0, 51, 102, 1)
+                Size: =DataCardValue8.Size
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width / 2 -60
+                X: =30
+                Y: =DataCardKey9.Y + DataCardKey9.Height + 5
+                ZIndex: =2
+
+            ErrorMessage7 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DateValue1.Y + DateValue1.Height
+                ZIndex: =6
+
+        SupplyPhase_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_supplyphase"
+            Default: =ThisItem.SupplyPhase
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_supplyphase")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Radio1.Selected.Value
+            Width: =640
+            X: =0
+            Y: =5
+            ZIndex: =1
+
+            DataCardKey26 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessage24 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =Radio1.Y + Radio1.Height
+                ZIndex: =3
+
+            FieldSep1 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =590
+                X: =(640-Self.Width)/2
+                Y: =8
+                ZIndex: =4
+
+            Radio1 As radio:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =ThisItem.SupplyPhase
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverColor: =RGBA(0, 89, 178, 1)
+                Items: =[1,2,3]
+                Layout: =Layout.Horizontal
+                PaddingBottom: =0
+                PaddingTop: =0
+                RadioBorderColor: =RGBA(0, 89, 178, 1)
+                RadioSize: =30
+                Width: =250
+                X: =30
+                Y: =42
+                ZIndex: =5
+
+        PanelBrand_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_panelbrand"
+            Default: =ThisItem.PanelBrand
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_panelbrand")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_panelbrand")
+            Required: =true
+            Update: =DataCardValue19.Text
+            Width: =320
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            DataCardKey20 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue19 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey20.Y + DataCardKey20.Height + 5
+                ZIndex: =2
+
+            ErrorMessage18 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue19.Y + DataCardValue19.Height
+                ZIndex: =3
+
+            FieldSep4 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                X: =25
+                Y: =8
+                ZIndex: =4
+
+        PanelSize_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_panelsize"
+            Default: =ThisItem.PanelSize
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_panelsize")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Value(DataCardValue21.Text)
+            Width: =320
+            X: =1
+            Y: =6
+            ZIndex: =1
+
+            DataCardKey22 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue21 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Format: =TextFormat.Number
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey22.Y + DataCardKey22.Height + 5
+                ZIndex: =2
+
+            ErrorMessage20 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue21.Y + DataCardValue21.Height
+                ZIndex: =3
+
+            FieldSep5 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                Y: =8
+                ZIndex: =4
+
+            Unit1 As label:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(116, 116, 116, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =DataCardValue26.Height
+                Text: ="W"
+                Width: =30
+                X: =252
+                Y: =47
+                ZIndex: =5
+
+        PanelNum_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_panelnum"
+            Default: =ThisItem.PanelNum
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_panelnum")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Value(DataCardValue20.Text)
+            Width: =640
+            X: =0
+            Y: =7
+            ZIndex: =1
+
+            DataCardKey21 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue20 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Format: =TextFormat.Number
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width/2 - 60
+                X: =30
+                Y: =DataCardKey21.Y + DataCardKey21.Height + 5
+                ZIndex: =2
+
+            ErrorMessage19 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue20.Y + DataCardValue20.Height
+                ZIndex: =3
+
+        SysSize_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_syssize"
+            Default: =ThisItem.SysSize
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_syssize")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =Value(DataCardValue26.Text)
+            Width: =640
+            X: =0
+            Y: =8
+            ZIndex: =1
+
+            DataCardKey27 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue26 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =If(Parent.DisplayMode = DisplayMode.View, Parent.Default, Value(DataCardValue20.Text) * Value(DataCardValue21.Text))
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =DisplayMode.View
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Format: =TextFormat.Number
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width/2 - 60
+                X: =30
+                Y: =DataCardKey27.Y + DataCardKey27.Height + 5
+                ZIndex: =2
+
+            ErrorMessage25 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue26.Y + DataCardValue26.Height
+                ZIndex: =3
+
+            StarVisible25 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey27.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey27.Y
+                ZIndex: =4
+
+            Unit2 As label:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(116, 116, 116, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =DataCardValue26.Height
+                Text: ="Wp"
+                Width: =40
+                X: =242
+                Y: =DataCardValue26.Y
+                ZIndex: =5
+
+        InvPhase_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_invphase"
+            Default: =ThisItem.InvPhase
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_invphase")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Radio1_1.Selected.Value
+            Width: =320
+            X: =0
+            Y: =9
+            ZIndex: =1
+
+            DataCardKey13 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessage11 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =Radio1_1.Y + Radio1_1.Height
+                ZIndex: =3
+
+            FieldSep7 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                X: =25
+                Y: =8
+                ZIndex: =4
+
+            Radio1_1 As radio:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =ThisItem.InvPhase
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverColor: =RGBA(0, 89, 178, 1)
+                Items: =[1,2,3]
+                Layout: =Layout.Horizontal
+                PaddingBottom: =0
+                PaddingTop: =0
+                RadioBorderColor: =RGBA(0, 89, 178, 1)
+                RadioSize: =30
+                Width: =250
+                X: =30
+                Y: =42
+                ZIndex: =5
+
+        InvSize_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_invsize"
+            Default: =ThisItem.InvSize
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_invsize")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =Value(DataCardValue13.Text)
+            Width: =320
+            X: =1
+            Y: =9
+            ZIndex: =1
+
+            DataCardKey14 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue13 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Format: =TextFormat.Number
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey14.Y + DataCardKey14.Height + 5
+                ZIndex: =2
+
+            ErrorMessage12 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue13.Y + DataCardValue13.Height
+                ZIndex: =3
+
+            FieldSep6 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                Y: =8
+                ZIndex: =4
+
+            Unit2_1 As label:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(116, 116, 116, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =DataCardValue26.Height
+                Text: ="kW"
+                Width: =40
+                X: =242
+                Y: =47
+                ZIndex: =5
+
+        InvBrand_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_invbrand"
+            Default: =ThisItem.InvBrand
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_invbrand")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_invbrand")
+            Required: =true
+            Update: =DataCardValue10.Text
+            Width: =320
+            X: =0
+            Y: =10
+            ZIndex: =1
+
+            DataCardKey11 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue10 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey11.Y + DataCardKey11.Height + 5
+                ZIndex: =2
+
+            ErrorMessage9 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue10.Y + DataCardValue10.Height
+                ZIndex: =3
+
+        InvModel_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_invmodel"
+            Default: =ThisItem.InvModel
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_invmodel")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_invmodel")
+            Required: =true
+            Update: =DataCardValue11.Text
+            Width: =320
+            X: =1
+            Y: =10
+            ZIndex: =1
+
+            DataCardKey12 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue11 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey12.Y + DataCardKey12.Height + 5
+                ZIndex: =2
+
+            ErrorMessage10 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =ErrorMessage1.Size
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue11.Y + DataCardValue11.Height
+                ZIndex: =3
+
+        SN_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_sn"
+            Default: =ThisItem.SN
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_sn")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_sn")
+            Required: =false
+            Update: =DataCardValue24.Text
+            Width: =640
+            X: =0
+            Y: =11
+            ZIndex: =1
+
+            DataCardKey25 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName & " (Optional)"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue24 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =If(Parent.DisplayMode = DisplayMode.View,Parent.Default,barcodestring)
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                ZIndex: =2
+
+            ErrorMessage23 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue24.Y + DataCardValue24.Height
+                ZIndex: =3
+
+            StarVisible23 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey25.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey25.Y
+                ZIndex: =4
+
+            ScanBtn As icon.Camera:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(0, 62, 125, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(244, 244, 244, 1)
+                Height: =BarcodeScanner1.Height
+                Icon: =Icon.Camera
+                PaddingBottom: =2
+                PaddingTop: =2
+                Visible: =Parent.DisplayMode = DisplayMode.Edit
+                Width: =60
+                X: =BarcodeScanner1.X
+                Y: =BarcodeScanner1.Y
+                ZIndex: =5
+
+            BarcodeScanner1 As barcodeScanner:
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(0, 0, 0, 0)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                Fill: =RGBA(0, 0, 0, 0)
+                FontWeight: =FontWeight.Semibold
+                Height: =DataCardValue24.Height
+                HoverBorderColor: =
+                HoverColor: =RGBA(0, 0, 0, 0)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                OnScan: =Set(barcodestring,BarcodeScanner1.Value)
+                PressedBorderColor: =
+                PressedColor: =
+                PressedFill: =
+                Size: =12
+                Text: =""
+                Width: =60
+                X: =550
+                Y: =47
+                ZIndex: =6
+
+        BatModel_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_batmodel"
+            Default: =ThisItem.BatModel
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_batmodel")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_batmodel")
+            Required: =false
+            Update: =DataCardValue6.Text
+            Width: =320
+            X: =0
+            Y: =12
+            ZIndex: =1
+
+            DataCardKey6 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName & " (Optional)"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue6 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                ZIndex: =2
+
+            ErrorMessage4 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue6.Y + DataCardValue6.Height
+                ZIndex: =3
+
+            StarVisible4 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey6.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey6.Y
+                ZIndex: =4
+
+            FieldSep8 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                X: =25
+                Y: =8
+                ZIndex: =5
+
+        BatSize_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_batsize"
+            Default: =ThisItem.BatSize
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_batsize")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =Value(DataCardValue5.Text)
+            Width: =320
+            X: =1
+            Y: =12
+            ZIndex: =1
+
+            DataCardKey5 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName & " (Optional)"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue5 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Format: =TextFormat.Number
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey5.Y + DataCardKey5.Height + 5
+                ZIndex: =2
+
+            ErrorMessage3 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue5.Y + DataCardValue5.Height
+                ZIndex: =3
+
+            StarVisible3 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey5.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey5.Y
+                ZIndex: =4
+
+            FieldSep9 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                Y: =8
+                ZIndex: =5
+
+            Unit2_2 As label:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(116, 116, 116, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =DataCardValue26.Height
+                Text: ="kWh"
+                Width: =50
+                X: =232
+                Y: =47
+                ZIndex: =6
+
+        OptBrand_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_optbrand"
+            Default: =ThisItem.OptBrand
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_optbrand")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_optbrand")
+            Required: =false
+            Update: =DataCardValue16.Text
+            Width: =320
+            X: =0
+            Y: =13
+            ZIndex: =1
+
+            DataCardKey17 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName & " (Optional)"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue16 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                ZIndex: =2
+
+            ErrorMessage15 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue16.Y + DataCardValue16.Height
+                ZIndex: =3
+
+            StarVisible15 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey17.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey17.Y
+                ZIndex: =4
+
+            FieldSep10 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                X: =25
+                Y: =8
+                ZIndex: =5
+
+        OptModel_DataCard1 As typedDataCard.textualEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_optmodel"
+            Default: =ThisItem.OptModel
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_optmodel")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@tdb01_insrecords], DataSourceInfo.MaxLength, "cr7ee_optmodel")
+            Required: =false
+            Update: =DataCardValue17.Text
+            Width: =320
+            X: =1
+            Y: =13
+            ZIndex: =1
+
+            DataCardKey18 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName & " (Optional)"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue17 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                ZIndex: =2
+
+            ErrorMessage16 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue17.Y + DataCardValue17.Height
+                ZIndex: =3
+
+            StarVisible16 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey18.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey18.Y
+                ZIndex: =4
+
+            FieldSep11 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                Y: =8
+                ZIndex: =5
+
+        OptNum_DataCard1 As typedDataCard.numberEditCard:
+            BorderColor: =Address_DataCard1.BorderColor
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_optnum"
+            Default: =ThisItem.OptNum
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_optnum")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =88
+            Required: =false
+            Update: =Value(DataCardValue18.Text)
+            Width: =640
+            X: =0
+            Y: =14
+            ZIndex: =1
+
+            DataCardKey19 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName & " (Optional)"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue18 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                BorderThickness: =DataCardValue8.BorderThickness
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderThickness: =4
+                Font: =Font.Lato
+                Format: =TextFormat.Number
+                Height: =DataCardValue8.Height
+                HoverBorderColor: =RGBA(0, 89, 178, 1)
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(153, 205, 255, 1)
+                PaddingLeft: =DataCardValue3.PaddingLeft
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Size: =DataCardValue8.Size
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey19.Y + DataCardKey19.Height + 5
+                ZIndex: =2
+
+            ErrorMessage17 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue18.Y + DataCardValue18.Height
+                ZIndex: =3
+
+            StarVisible17 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey19.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey19.Y
+                ZIndex: =4
+
+        Backup_DataCard5 As typedDataCard.comboBoxOptionSetSingleEditCard:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_backup"
+            Default: =ThisItem.Backup
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_backup")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =95
+            Required: =false
+            Update: =If(Toggle1.Value = true,'Backup (tdb01_insrecords)'.Yes,'Backup (tdb01_insrecords)'.No)
+            Width: =320
+            X: =0
+            Y: =15
+            ZIndex: =1
+
+            DataCardKey24 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessage29 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =Toggle1.Y + Toggle1.Height
+                ZIndex: =3
+
+            StarVisible6 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey24.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey24.Y
+                ZIndex: =4
+
+            Toggle1 As toggleSwitch:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =ThisItem.Backup
+                FalseFill: =RGBA(202, 202, 202, 1)
+                FalseText: ="No"
+                Font: =Font.Lato
+                HandleFill: =RGBA(255, 255, 255, 1)
+                Height: =27
+                Size: =DataCardValue8.Size
+                TrueFill: =RGBA(0, 51, 102, 1)
+                TrueText: ="Yes"
+                Width: =110
+                X: =40
+                Y: =DataCardKey24.Y + DataCardKey24.Height + 5
+                ZIndex: =5
+
+            FieldSep12 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                X: =25
+                Y: =8
+                ZIndex: =6
+
+        Smartmeter_DataCard1 As typedDataCard.comboBoxOptionSetSingleEditCard:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr7ee_smartmeter"
+            Default: =ThisItem.Smartmeter
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@tdb01_insrecords],DataSourceInfo.DisplayName,"cr7ee_smartmeter")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =If(Toggle1_1.Value = true,'Backup (tdb01_insrecords)'.Yes,'Backup (tdb01_insrecords)'.No)
+            Width: =320
+            X: =1
+            Y: =15
+            ZIndex: =1
+
+            DataCardKey28 As label:
+                AutoHeight: =true
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =48
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            ErrorMessage30 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =Toggle1_1.Y + Toggle1_1.Height
+                ZIndex: =3
+
+            StarVisible7 As label:
+                Align: =Align.Center
+                Color: =RGBA(0, 89, 178, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey28.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey28.Y
+                ZIndex: =4
+
+            Toggle1_1 As toggleSwitch:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                Default: =ThisItem.Smartmeter
+                FalseFill: =RGBA(202, 202, 202, 1)
+                FalseText: ="No"
+                Font: =Font.Lato
+                HandleFill: =RGBA(255, 255, 255, 1)
+                Height: =27
+                Size: =DataCardValue8.Size
+                TrueFill: =RGBA(0, 51, 102, 1)
+                TrueText: ="Yes"
+                Width: =Toggle1.Width
+                X: =Toggle1.X
+                Y: =DataCardKey24.Y + DataCardKey24.Height + 5
+                ZIndex: =5
+
+            FieldSep13 As rectangle:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Fill: =RGBA(209, 209, 209, 1)
+                Height: =1
+                Width: =295
+                Y: =8
+                ZIndex: =6
+
+            Unit2_3 As label:
+                BorderColor: =RGBA(0, 89, 178, 1)
+                Color: =RGBA(221, 79, 14, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Font: =Font.Lato
+                Height: =34
+                Size: =11
+                Text: ="Export Limitation Required!"
+                Visible: =And(Radio1_1.Selected.Value = 1,Value(DataCardValue13.Text)>5)
+                Width: =126
+                X: =169
+                Y: =40
+                ZIndex: =7
+
+    RICont2 As groupContainer.manualLayoutContainer:
+        Height: =60
+        Visible: =RecordForm.Mode=FormMode.Edit
+        Width: =640
+        Y: =1076
+        ZIndex: =3
+
+        SaveBtn As icon.Save:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =40
+            Icon: =Icon.Check
+            OnSelect: =SubmitForm(RecordForm)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Color.LimeGreen
+            Width: =264
+            X: =342
+            Y: =10      
+            ZIndex: =3
+
+        CancelBtn As icon.Cancel:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: =ResetForm(RecordForm);ViewForm(RecordForm)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Color.SlateGray
+            Width: =320-44
+            X: =22
+            Y: =10
+            ZIndex: =4
+
+        RISeperator2 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RISeperator1_2.Fill
+            Height: =40
+            Width: =1
+            X: =320
+            Y: =10
+            ZIndex: =6
+
+        RISeperator1_2 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =40
+            Visible: =false
+            Width: =1
+            X: =100
+            Y: =10
+            ZIndex: =7
+
+    RISeperator3 As rectangle:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Fill: =RISeperator1_2.Fill
+        Height: =1
+        Width: =620
+        X: =10
+        Y: =1080
+        ZIndex: =4
+
+    RICont3 As groupContainer.manualLayoutContainer:
+        Height: =60
+        Visible: =RecordForm.Mode=FormMode.View
+        Width: =640
+        Y: =1076
+        ZIndex: =5
+
+        DeleteBtn1 As icon.Trash:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(168, 0, 0, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =40
+            Icon: =Icon.Trash
+            OnSelect: =Set(popvis,true)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Color.Red
+            Width: =88
+            X: =6
+            Y: =10
+            ZIndex: =5
+
+        RISeperator1_1 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =40
+            Width: =1
+            X: =100
+            Y: =10
+            ZIndex: =7
+
+        SaveBtn_1 As icon.Save:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            DisplayMode: =If(popvis,DisplayMode.Disabled,DisplayMode.Edit)
+            Height: =DeleteBtn1.Height
+            Icon: =Icon.Edit
+            OnSelect: =EditForm(RecordForm)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Self.Color
+            Width: =528
+            X: =106
+            Y: =DeleteBtn1.Y
+            ZIndex: =8
+
+    RICont4 As groupContainer.manualLayoutContainer:
+        Height: =60
+        Visible: =RecordForm.Mode=FormMode.New
+        Width: =640
+        Y: =1076
+        ZIndex: =6
+
+        DeleteBtn1_1 As icon.Trash:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =40
+            Icon: =Icon.Cancel
+            OnSelect: =Navigate(ViewRecord,ScreenTransition.CoverRight);ResetForm(RecordForm)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =Color.Red
+            Width: =88
+            X: =6
+            Y: =10
+            ZIndex: =5
+
+        RISeperator1_3 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =40
+            Width: =1
+            X: =100
+            Y: =10
+            ZIndex: =7
+
+        SaveBtn_2 As icon.Save:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 62, 125, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =DeleteBtn1_1.Height
+            Icon: =Icon.Check
+            OnSelect: =SubmitForm(RecordForm)
+            PaddingLeft: =10
+            PaddingRight: =10
+            PressedColor: =Color.White
+            PressedFill: =LimeGreen
+            Width: =528
+            X: =106
+            Y: =DeleteBtn1_1.Y
+            ZIndex: =8
+
+    Group1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =10
+
+        Popwin As button:
+            BorderColor: =RGBA(0, 36, 71, 1)
+            Color: =RGBA(0, 36, 71, 1)
+            DisabledBorderColor: =Self.BorderColor
+            DisabledColor: =Self.Color
+            DisabledFill: =Self.Fill
+            DisplayMode: =DisplayMode.Disabled
+            Fill: =RGBA(219, 219, 219, 1)
+            Font: =Font.Lato
+            Height: =100
+            HoverBorderColor: =Self.Fill
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(RGBA(0, 51, 102, 1), -20%)
+            PaddingBottom: =15
+            PaddingTop: =15
+            PressedBorderColor: =RGBA(184, 0, 0, 1)
+            PressedFill: =RGBA(0, 36, 71, 1)
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            Size: =16
+            Text: ="Would you like to DELETE record "&RITitle.Text&" ?"
+            VerticalAlign: =VerticalAlign.Top
+            Visible: =popvis
+            Width: =500
+            X: =(640-Self.Width)/2
+            Y: =(1136-Self.Height)/2
+            ZIndex: =7
+
+        DelBtn As button:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(184, 0, 0, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(219, 219, 219, 1)
+            FocusedBorderThickness: =2
+            Font: =Font.'Lato Black'
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            HoverFill: =RGBA(255, 255, 255, 1)
+            OnSelect: =Remove(tdb01_insrecords,VRGal.Selected);Set(popvis,false);Navigate(ViewRecord,ScreenTransition.Fade)
+            PressedBorderColor: =RGBA(255, 255, 255, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(184, 0, 0, 1)
+            Size: =14
+            Text: ="DELETE"
+            Visible: =popvis
+            Width: =200
+            X: =98
+            Y: =575
+            ZIndex: =8
+
+        CanBtn As button:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(149, 149, 149, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(219, 219, 219, 1)
+            FocusedBorderThickness: =2
+            Font: =Font.'Lato Black'
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            OnSelect: =Set(popvis,false)
+            PressedBorderColor: =RGBA(255, 255, 255, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(166, 166, 166, 1)
+            Size: =14
+            Text: ="CANCEL"
+            Visible: =popvis
+            Width: =200
+            X: =640-DelBtn.X-DelBtn.Width
+            Y: =575
+            ZIndex: =9
+

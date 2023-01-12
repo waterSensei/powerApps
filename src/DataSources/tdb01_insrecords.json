@@ -1,0 +1,160 @@
+[
+  {
+    "DisplayName": "tdb01_insrecords (Views)",
+    "Name": "_cr7ee_tdb01_insrecord_2_views",
+    "RelatedEntityName": "tdb01_insrecords",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "2533e14f-8a49-43c6-836e-567c1f64aa9d": "Inactive tdb01_insrecords",
+      "bf44ac23-4bd5-4172-83bd-79d2055e34a9": "tdb01_insrecord Lookup View",
+      "d0f1acaa-e015-4730-8f3c-af61d62b13dc": "Active tdb01_insrecords",
+      "d7ec4765-5a13-4d62-8ba8-5df169e78dd8": "tdb01_insrecord Associated View",
+      "e8f7271b-04ed-44f9-975e-63c24be606c1": "tdb01_insrecord Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Backup (tdb01_insrecords)",
+    "Name": "cr7ee_tdb01_insrecord_2_cr7ee_backup",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr7ee_backup",
+        "OptionSetReferenceEntityName": "tdb01_insrecords"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr7ee_backup",
+    "RelatedEntityName": "tdb01_insrecords",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Smartmeter (tdb01_insrecords)",
+    "Name": "cr7ee_tdb01_insrecord_2_cr7ee_smartmeter",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr7ee_smartmeter",
+        "OptionSetReferenceEntityName": "tdb01_insrecords"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cr7ee_smartmeter",
+    "RelatedEntityName": "tdb01_insrecords",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (tdb01_insrecords)",
+    "Name": "cr7ee_tdb01_insrecord_2_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "tdb01_insrecords"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "tdb01_insrecords",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (tdb01_insrecords)",
+    "Name": "cr7ee_tdb01_insrecord_2_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "tdb01_insrecords"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "tdb01_insrecords",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr7ee_tdb01_insrecord_2s",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr7ee_tdb01_insrecord_2",
+    "MaxGetRowsCount": 500,
+    "Name": "tdb01_insrecords",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr7ee_address": "Address",
+      "cr7ee_backup": "Backup",
+      "cr7ee_batmodel": "BatModel",
+      "cr7ee_batsize": "BatSize",
+      "cr7ee_email": "Email",
+      "cr7ee_firstname": "FirstName",
+      "cr7ee_installationdate": "InstallationDate",
+      "cr7ee_installer": "Installer",
+      "cr7ee_invbrand": "InvBrand",
+      "cr7ee_invmodel": "InvModel",
+      "cr7ee_invphase": "InvPhase",
+      "cr7ee_invsize": "InvSize",
+      "cr7ee_jn": "JN",
+      "cr7ee_lastname": "LastName",
+      "cr7ee_mobile": "Mobile",
+      "cr7ee_optbrand": "OptBrand",
+      "cr7ee_optmodel": "OptModel",
+      "cr7ee_optnum": "OptNum",
+      "cr7ee_panelbrand": "PanelBrand",
+      "cr7ee_panelnum": "PanelNum",
+      "cr7ee_panelsize": "PanelSize",
+      "cr7ee_sales": "Sales",
+      "cr7ee_smartmeter": "Smartmeter",
+      "cr7ee_sn": "SN",
+      "cr7ee_supplyphase": "SupplyPhase",
+      "cr7ee_syssize": "SysSize",
+      "cr7ee_tdb01_insrecord_2_AsyncOperations": "System Jobs",
+      "cr7ee_tdb01_insrecord_2_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr7ee_tdb01_insrecord_2_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr7ee_tdb01_insrecord_2_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr7ee_tdb01_insrecord_2_ProcessSession": "Process Sessions",
+      "cr7ee_tdb01_insrecord_2_SyncErrors": "Sync Errors",
+      "cr7ee_tdb01_insrecord_2id": "tdb01_insrecord",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "tdb01_insrecords",
+    "Type": "NativeCDSDataSourceInfo"
+  }
+]

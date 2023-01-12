@@ -1,0 +1,223 @@
+Attachment As screen:
+    Fill: =RGBA(232, 232, 232, 1)
+
+    AttCont As groupContainer.verticalAutoLayoutContainer:
+        Height: =85
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =640
+        ZIndex: =1
+
+        VRBackIcon_2 As icon.ChevronLeft:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =AttCont.Height
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Back(ScreenTransition.CoverRight)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =AttCont.Height
+            ZIndex: =1
+
+        VRTitle_2 As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =AttCont.Height
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Size: =24
+            Text: ="Attach"
+            Width: =AttCont.Width-VRBackIcon_2.Width-VRHomeIcon_2.Width
+            ZIndex: =2
+
+        VRHomeIcon_2 As icon.Home:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =AttCont.Height
+            Icon: =Icon.Home
+            OnSelect: =Navigate(HomePage,ScreenTransition.Fade)
+            PaddingBottom: =20
+            PaddingTop: =20
+            PressedFill: =RGBA(153,173,194,1)
+            Width: =AttCont.Height
+            ZIndex: =3
+
+    AddMediaWithImage As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =2
+
+        UploadedImage As image:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            Height: =AddMediaButton.Height
+            Image: =If(IsBlank(AddMediaButton.Media), SampleImage, AddMediaButton.Media)
+            ImagePosition: =ImagePosition.Fill
+            Width: =AddMediaButton.Width
+            X: =AddMediaButton.X
+            Y: =AddMediaButton.Y
+            ZIndex: =3
+
+        AddMediaButton As addMedia:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =432
+            Size: =25
+            Width: =575
+            X: =32
+            Y: =85
+            ZIndex: =4
+
+    "Gallery1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Height: =456
+        Items: =attachedfiles
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =120
+        Y: =679
+        ZIndex: =5
+
+        Image1 As image:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            Image: =ThisItem.ContentBytes
+            OnSelect: =Select(Parent)
+            X: =16
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =1
+
+        Title5 As label:
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: =ThisItem.Name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - Image1.Width - 104
+            X: =139
+            Y: =45
+            ZIndex: =2
+
+        NextArrow1 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 51, 102, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =60
+            Icon: =Icon.Trash
+            OnSelect: =Remove(attachedfiles,ThisItem)
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =60
+            X: =Parent.TemplateWidth - Self.Width - 5
+            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            ZIndex: =4
+
+        Separator4 As rectangle:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Fill: =RGBA(0, 89, 178, 1)
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+    Label1 As label:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.Lato
+        Height: =35
+        Size: =16
+        Text: |-
+            ="Image name:"
+        Width: =AddMediaButton.Width
+        X: =32
+        Y: =528
+        ZIndex: =6
+
+    ImageNameInput As text:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(0, 0, 0, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        FocusedBorderThickness: =1
+        Height: =35
+        HintText: ="Image Name"
+        HoverBorderColor: =RGBA(0, 89, 178, 1)
+        HoverColor: =RGBA(0, 0, 0, 1)
+        HoverFill: =RGBA(153, 205, 255, 1)
+        RadiusBottomLeft: =17.5
+        RadiusBottomRight: =17.5
+        RadiusTopLeft: =17.5
+        RadiusTopRight: =17.5
+        Size: =16
+        Width: =560
+        X: =32
+        Y: |
+            =Label1.Y+Label1.Height+10
+        ZIndex: =7
+
+    Label1_1 As label:
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(162, 162, 162, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Font: =Font.'Lato Light'
+        Height: =35
+        Size: =16
+        Text: =ImageNameInput.Text&"_"&Now()&".png"
+        Width: =560
+        X: =32
+        Y: |
+            =ImageNameInput.Y+ImageNameInput.Height+10
+        ZIndex: =8
+
+    Button1 As button:
+        BorderThickness: =1
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(0, 51, 102, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =35
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =ColorFade(RGBA(0, 51, 102, 1), -20%)
+        OnSelect: |-
+            =Collect(attachedfiles,({Name:ImageNameInput.Text&"_"&Now()&".png",ContentBytes:UploadedImage.Image,'@odata.type':""}));Reset(AddMediaButton);Reset(ImageNameInput)
+        RadiusBottomLeft: =17.5
+        RadiusBottomRight: =17.5
+        RadiusTopLeft: =17.5
+        RadiusTopRight: =17.5
+        Size: =16
+        Text: ="Add"
+        Width: =100
+        X: =492
+        Y: =Label1_1.Y
+        ZIndex: =9
+

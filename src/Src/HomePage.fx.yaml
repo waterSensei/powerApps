@@ -1,0 +1,229 @@
+HomePage As screen:
+    Fill: =RGBA(232, 232, 232, 1)
+
+    HPCont4 As groupContainer.manualLayoutContainer:
+        Height: =80
+        PaddingLeft: =20
+        PaddingRight: =20
+        Width: =Parent.Width
+        Y: =HPCont3.Y + HPCont3.Height + 30
+        ZIndex: =1
+
+        EmailBtn As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            Fill: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Lato Light'
+            Height: =HPCont3.Height
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: =Navigate(Email,ScreenTransition.Cover)
+            PressedColor: =Self.Color
+            PressedFill: =ColorFade(Self.Fill, -20%)
+            RadiusBottomLeft: =40
+            RadiusBottomRight: =40
+            RadiusTopLeft: =40
+            RadiusTopRight: =40
+            Size: =24
+            Text: ="Email"
+            Width: =HPCont4.Width - 2*HPCont4.PaddingLeft
+            X: =HPCont4.PaddingLeft
+            ZIndex: =1
+
+        EmailIcon1 As icon.Database:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =50
+            Icon: =Icon.Mail
+            OnSelect: =Select(EmailBtn)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Width: =50
+            X: =EmailBtn.X+HPCont4.PaddingLeft+10
+            Y: =EmailBtn.Y+EmailBtn.Height/2-Self.Height/2
+            ZIndex: =2
+
+        EmailIcon2 As icon.ChevronRight:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =50
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(EmailBtn)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Width: =50
+            X: =HPCont4.Width-Self.Width-HPCont4.PaddingRight-15
+            Y: =EmailBtn.Y+EmailBtn.Height/2-Self.Height/2
+            ZIndex: =3
+
+    HPCont3 As groupContainer.manualLayoutContainer:
+        Height: =80
+        PaddingLeft: =20
+        PaddingRight: =20
+        Width: =Parent.Width
+        Y: =700
+        ZIndex: =2
+
+        ViewRecordBtn As button:
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            Fill: =RGBA(107, 144, 179, 1)
+            Font: =Font.'Lato Light'
+            Height: =HPCont3.Height
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: =ColorFade(Self.Fill, -20%)
+            OnSelect: =Navigate(ViewRecord,ScreenTransition.Cover)
+            PressedColor: =Self.Color
+            PressedFill: =ColorFade(Self.Fill, -20%)
+            RadiusBottomLeft: =40
+            RadiusBottomRight: =40
+            RadiusTopLeft: =40
+            RadiusTopRight: =40
+            Size: =24
+            Text: ="View Record"
+            Width: =HPCont3.Width - 2*HPCont3.PaddingLeft
+            X: =HPCont3.PaddingLeft
+            ZIndex: =1
+
+        ViewRecordIcon1 As icon.Database:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =50
+            Icon: =Icon.Database
+            OnSelect: =Select(ViewRecordBtn)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Width: =50
+            X: =ViewRecordBtn.X+HPCont3.PaddingLeft+10
+            Y: =ViewRecordBtn.Y+ViewRecordBtn.Height/2-Self.Height/2
+            ZIndex: =2
+
+        ViewRecordIcon2 As icon.ChevronRight:
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(244, 244, 244, 1)
+            Height: =50
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(ViewRecordBtn)
+            PaddingBottom: =5
+            PaddingLeft: =5
+            PaddingRight: =5
+            PaddingTop: =5
+            Width: =50
+            X: =HPCont3.Width-Self.Width-HPCont3.PaddingRight-15
+            Y: =ViewRecordBtn.Y+ViewRecordBtn.Height/2-Self.Height/2
+            ZIndex: =3
+
+    HPCont2 As groupContainer.verticalAutoLayoutContainer:
+        Height: =500
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        PaddingBottom: =50
+        PaddingTop: =100
+        Width: =Parent.Width
+        Y: =85
+        ZIndex: =3
+
+        UserImage As image:
+            AlignInContainer: =AlignInContainer.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =5
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            DisplayMode: =DisplayMode.View
+            Height: =200
+            Image: =User().Image
+            RadiusBottomLeft: =100
+            RadiusBottomRight: =100
+            RadiusTopLeft: =100
+            RadiusTopRight: =100
+            Width: =200
+            ZIndex: =1
+
+        UserName As label:
+            Align: =Align.Center
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            PaddingTop: =30
+            Size: =21
+            Text: =User().FullName
+            Width: =560
+            ZIndex: =2
+
+        UserEmail As label:
+            Align: =Align.Center
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(116, 116, 116, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Height: =70
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Text: =User().Email
+            Width: =560
+            ZIndex: =3
+
+    HPCont1 As groupContainer.verticalAutoLayoutContainer:
+        Height: =85
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =4
+
+        HPTitle As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 89, 178, 1)
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =HPCont1.Height
+            LayoutMinHeight: =70
+            LayoutMinWidth: =560
+            Size: =24
+            Text: ="Home"
+            Width: =560
+            ZIndex: =1
+
+    versionLabel As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 89, 178, 1)
+        Color: =RGBA(162, 162, 162, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Height: =38
+        Size: =12
+        Text: ="v0.12"
+        Width: =Parent.Width
+        Y: =1098
+        ZIndex: =5
+
